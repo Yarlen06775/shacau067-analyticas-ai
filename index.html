@@ -263,4 +263,39 @@ function calcularStake(){
 }
 
 </script></body>
-      </html>
+  </html>
+async function analisarIA(jogo){
+
+ const response = await fetch(
+   "https://openrouter.ai/api/v1/chat/completions",
+   {
+     method:"POST",
+     headers:{
+       "Authorization":"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",
+       "Content-Type":"application/json"
+     },
+     body:JSON.stringify({
+       model:"mistralai/mistral-7b-instruct",
+       messages:[
+         {
+           role:"user",
+           content:`
+Analise o jogo ${jogo}
+
+Foque em:
+- gols
+- escanteios
+- cartões
+- chutes no gol
+- melhor criar aposta
+`
+         }
+       ]
+     })
+   }
+ );
+
+ const data = await response.json();
+
+ return data.choices[0].message.content;
+}
