@@ -280,11 +280,13 @@ content:jogo
 }
 );
 
-const data =
-await response.json();
+const data = await response.json();
 
-const resposta =
-data.choices[0].message.content;
+if(!response.ok){
+   document.getElementById("resultado").innerHTML =
+   JSON.stringify(data,null,2);
+   return;
+};
 
 document.getElementById("resultado")
 .innerHTML =
